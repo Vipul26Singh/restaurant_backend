@@ -1,0 +1,19 @@
+<?php
+class FetchDBDetail extends CI_Model {
+
+	public function __construct()
+	{
+		$this->load->database('krazytable');
+	}
+
+	public function soups($restaurantId = FALSE)
+	{
+		if ($restaurnatId == FALSE || $restaurnatId == NULL || $restaurnatId == '')
+		{
+			return getError('This RestaurantId not allowed');
+		}
+
+		$query = $this->db->get_where('news', array('slug' => $slug));
+		return $query->row_array();
+	}
+}

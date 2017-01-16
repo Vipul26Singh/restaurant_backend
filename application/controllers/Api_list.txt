@@ -1,0 +1,330 @@
+Note: In case of empty result set ErrorMessage in JSON is "No rows returned"
+
+
+
+1. Terms and conditions
+	{
+		"access_token":""
+	}
+
+	https://www.krazytable.in/krazytable_api/index.php/get_term_and_conditions/table_app
+
+2. Contact us API to send mail.
+	{
+		"name":"",
+		"email":"",
+		"mobile":"",
+		"query":"",
+		"access_token":""
+	}
+
+	
+	response:
+		{
+			"ErrorCode":"",
+			"ErrorMessage":""
+		}
+
+	Note: In case of success errorcode is 0
+
+	URL: 
+		https://www.krazytable.in/krazytable_api/index.php/mail_sending_api/process_contact_us
+		
+
+3. To submit feedback
+	{
+		"restaurantId:"",
+		"customerId":"",
+		"orderId":"",
+		"access_token":"",
+		"rating":"",
+		"comment":""
+	}
+
+
+	Response:
+		response:
+		{
+			"ErrorCode":"",
+			"ErrorMessage":""
+		}
+		
+		Note: In case of success errorcode is 0
+
+	URL: 
+		https://www.krazytable.in/krazytable_api/index.php/restaurant_feedback/submit
+
+4. Order history
+		{
+			"customerId:"",
+			"restaurantId":"",
+			"access_token":""
+		}
+
+		Success Response:
+		[
+	    {
+		"invoiceNo": "INV1234",
+		"dateTime": "0000-00-00 00:00:00",
+		"address": "\n\n\n",
+		"orderStatus": "NEW",
+		"totalVal": "123.00"
+	    },
+	    {
+		"invoiceNo": "INV123321",
+		"dateTime": "2016-06-21 00:00:00",
+		"address": "\n\n\n",
+		"orderStatus": "COMPLETE",
+		"totalVal": "0.00"
+	    }
+]	
+
+		Failure Response:
+		{
+			"ErrorCode":"",
+			"ErrorMessage":""
+		}
+
+	URL:
+		https://www.krazytable.in/krazytable_api/index.php/order_management/fetch_history
+
+5. Get invoice details
+
+	{
+		"customerId:"",
+		"resturantId":""
+		"invoiceNo":"",
+		"access_token":""
+	}
+
+	Success Response
+	{
+	    "invoiceNo": "INV1234",
+	    "cess": "120.00",
+	    "sbcess": "0.00",
+	    "serviceTax": "100.00",
+	    "discount": "10.00",
+	    "list": [
+		{
+		    "itemName": "Nawabi Chicken Tikka",
+		    "qty": "1",
+		    "plateSize": "large",
+		    "price": "12",
+		    "description": "hunks of chicken marinated in spices and yogurt, that is then baked in a tandoor oven, and served in a masala (spice mix) sauce.",
+		    "imageurl": "http:\/\/127.0.0.1\/krazytable_api\/\/images\/Restkrazytableu67hte\/Nawabi Chicken Tikka.png"
+		},
+		{
+		    "itemName": "Dahi K kebab",
+		    "qty": "13",
+		    "plateSize": "medium",
+		    "price": "130",
+		    "description": "Dahi kabab is a special recipe belonging to awadh. Savoring taste of hung curd having light spices and served with green coriander or mint chutney",
+		    "imageurl": "http:\/\/127.0.0.1\/krazytable_api\/\/images\/Restkrazytableu67hte\/Dahi K kebab.png"
+		}
+	    ]
+	}
+
+	
+
+	Failure Response:
+		{
+			"ErrorCode":"",
+			"ErrorMessage":""
+		}
+
+	URL:
+		https://www.krazytable.in/krazytable_api/index.php/order_management/get_invoice_detail
+		
+
+6. Submit order
+
+	{
+		"customerId":"",
+		"restaurantsId":""
+		"orderList":[
+		{
+			"largecount":"",
+			"mediumcount":"",
+			"smallcount":"",
+			"current":1,
+			"itemName":"",
+			"itemimage":"",
+			"largeprice":1000.00,
+			"mediumprice":100.00,
+			"smallprice":10.00
+		},
+		{
+			"largecount":"",
+			"mediumcount":"",
+			"smallcount":"",
+			"current":1,
+			"itemName":"",
+			"itemimage":"",
+			"largeprice":1000.00,
+			"mediumprice":100.00,
+			"smallprice":10.00
+		}
+		]
+	}
+
+		response:
+		{
+			"ErrorCode":"",
+			"ErrorMessage":""
+		}
+
+	Note: In case of success errorcode is 0
+
+	URL:
+		https://www.krazytable.in/krazytable_api/index.php/order_management/submit
+
+7. Restaurant Login
+		{
+			"username":"",
+			"password":"",
+			"access_token":""
+		}
+
+		error response:
+		{
+			"ErrorCode":"",
+			"ErrorMessage":""
+		}
+
+		success response:
+		{
+		    "restaurnatId": "Restkrazytableu67hte",
+		    "addressLine1": "",
+		    "addressLine2": "",
+		    "addressLine3": "",
+		    "city": "",
+		    "state": "",
+		    "country": "",
+		    "pincode": null,
+		    "emailId": "",
+		    "latitude": null,
+		    "longitude": null
+		}
+
+		URL:
+			https://www.krazytable.in/krazytable_api/index.php/login_verification/restaurant_login		
+
+
+8. Customer Login
+		{
+			"username":"",
+			"password":"",
+			"access_token":""
+		}
+
+		error response:
+		{
+			"ErrorCode":"",
+			"ErrorMessage":""
+		}
+
+		success response:
+		{
+		    "customerId": "1234567",
+		    "firstName": "Vipul",
+		    "middleName": null,
+		    "surname": "Singh",
+		    "emailId": "vipul.singh@krazytable.in",
+		    "mobileNumber": "9717077728"
+		}
+
+		URL:
+			https://www.krazytable.in/krazytable_api/index.php/login_verification/customer_login			
+	
+
+9. Customer Registration
+
+	{
+		"access_token":"",
+		"firstName": "",
+		"middleName":"",
+		"lastName":"",
+		"userName":"",
+		"password":"",
+		"email":"",
+		"mobile":""
+	}
+
+	success response:
+	{
+	    "customerId": "CSTID1234567"
+	}
+
+	failure Response:
+	{
+		"ErrorCode":"",
+		"ErrorMessage":""
+	}
+
+	URL:
+		https://www.krazytable.in/krazytable_api/index.php/manage_customer/register
+
+
+10 Menu Item:
+	
+	{
+		"access_token":"Auth-57419670a71b8491911330",
+		"subCategory1": "soup",
+		"restaurantId":"Restkrazytableu67hte"
+	}
+
+
+	failure Response:
+	{
+		"ErrorCode":"",
+		"ErrorMessage":""
+	}
+
+	success response:
+	{
+	    "collectionImage": "http:\/\/127.0.0.1\/krazytable_api\/\/images\/Restkrazytableu67hte\/soup.png",
+	    "itemList": [
+		{
+		    "id": "chicken",
+		    "imageUrl": "http:\/\/127.0.0.1\/krazytable_api\/\/images\/Restkrazytableu67hte\/chicken.png",
+		    "title": "chicken Soup",
+		    "description": "Strain the broth. Pick the meat off of the bones and chop the carrots, celery and onion. Season the broth with salt, pepper and chicken bouillon to taste, if desired. Return the chicken, carrots, cele",
+		    "ratings": "3.50",
+		    "price": {
+		        "sPrice": null,
+		        "mPrice": "80",
+		        "lPrice": "15"
+		    },
+		    "wTime": "15"
+		},
+		{
+		    "id": "lentil",
+		    "imageUrl": "http:\/\/127.0.0.1\/krazytable_api\/\/images\/Restkrazytableu67hte\/lentil.png",
+		    "title": "Lentil Soup",
+		    "description": "Lentils are coupled with vegetables for this family-friendly lentil soup. Topped with spinach and a splash of vinegar, this is the perfect weekday dinner soup.",
+		    "ratings": "4.20",
+		    "price": {
+		        "sPrice": null,
+		        "mPrice": "50",
+		        "lPrice": "5"
+		    },
+		    "wTime": "5"
+		},
+		{
+		    "id": "tomato",
+		    "imageUrl": "http:\/\/127.0.0.1\/krazytable_api\/\/images\/Restkrazytableu67hte\/tomato.png",
+		    "title": "Creamy Tomato Soup",
+		    "description": "A creamy soup delight, the Cream of tomato soup is an all time favorite hot soup recipe with the rich taste of fresh plum tomatoes and a dash of cream added as topping.",
+		    "ratings": "4.00",
+		    "price": {
+		        "sPrice": null,
+		        "mPrice": "40",
+		        "lPrice": "4"
+		    },
+		    "wTime": "4"
+		}
+	    ]
+	}
+
+	URL:
+		https://www.krazytable.in/krazytable_api/index.php/fetch_menu_item/get_item

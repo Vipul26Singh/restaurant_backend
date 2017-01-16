@@ -1,0 +1,56 @@
+{
+
+	"report":[
+	{
+		"report_id":"1",
+		  "report_name":"Mangement",
+		  "report_description":"Reports are for management purpose",
+		  "subreport_list":[
+		  {
+			"subreport_id":"1",
+	     		"subreport_name":"Food item",
+	     		"subreport_description":"test",
+	     		"filter":[
+	     			{
+					"name":"Food item",
+    					"type":"drop down",
+     					"mandatory":"NO",
+     					"dropdown_value":[
+						"chicken", "paneer"
+					]
+	     			},
+	     			{
+					"name":"Start date",
+     					"type":"date",
+     					"mandatory":"YES"
+	     			}
+	     		]
+		  },
+		  {
+                        "subreport_id":"2",
+                        "subreport_name":"Price",
+                        "subreport_description":"test"
+                  }
+	  ]	
+	},
+	{
+                "report_id":"2",
+                  "report_name":"Finacnce",
+                  "report_description":"Financial reports",
+                  "subreport_list":[
+                  {
+                        "subreport_id":"3",
+                        "subreport_name":"Sale",
+                        "subreport_description":"total sale",
+                        "filter":[
+                                {
+                                        "name":"Food Rating",
+                                        "type":"string",
+                                        "mandatory":"NO"
+                                }
+                        ]
+                  }
+          	]
+	}
+	]
+}
