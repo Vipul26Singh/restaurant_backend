@@ -741,7 +741,8 @@ class Admin_catalogue_management extends CI_Controller {
 					}
 				}
 
-				$this->restaurant_menu_item->set_value('restaurant_id', $elem['restaurant_id']);
+
+				$this->restaurant_menu_item->set_value('restaurant_id', $jsonData['restaurant_id']);
 				$this->restaurant_menu_item->set_value('item_id', $item_id);
 				$this->restaurant_menu_item->set_value('item_name', $elem['item_name']);
 				$this->restaurant_menu_item->set_value('content', $elem['content']);
@@ -758,14 +759,14 @@ class Admin_catalogue_management extends CI_Controller {
 				foreach($elem['price_list'] as $price_elem){
 					$this->restaurant_menu_price->reset_data();
 					$this->restaurant_menu_price->set_value('size_id', $price_elem['size_id']);
-					$this->restaurant_menu_price->set_value('item_id', $price_elem['item_id']);
+					$this->restaurant_menu_price->set_value('item_id', $item_id);
 					$this->restaurant_menu_price->set_value('price', $price_elem['price']);
 
 					$this->menuPriceItem->add_data($this->restaurant_menu_price->get_array_add());
 				}
-				$output_data[] = array("id"=>$elem['id'], "image_url"=> KRAZYTABLE_URL.$image_path_name, "ErrorCode"=>$temp_error_code, "ErrorMessage"=>$temp_error_message);
+				$output_data[] = array("id"=>$item_id, "image_url"=> KRAZYTABLE_URL.$image_path_name, "ErrorCode"=>$temp_error_code, "ErrorMessage"=>$temp_error_message);
 			}catch(Exception $e) {
-				$output_data[] = array("id"=>$item_id, "ErrorCode"=>EXIT_DATABASE, "ErrorMessage"=>"Details not upladed for ". $elem['item_name'] . $temp_error_message);
+				$output_data[] = array("id"=>$item_id, "ErrorCode"=>EXIT_DATABASE, "ErrorMessage"=>"Details not upladed for ". $elem['item_name'] . $temp_error_message . $e->getMessage());
 				$err_count +=1;                     
 				$err_index =  $err_index . ',' .$curr_index;
 				if(isset($elem['image'])){
@@ -825,8 +826,8 @@ class Admin_catalogue_management extends CI_Controller {
 					}
 				}
 
-				$this->restaurant_menu_item->set_value('restaurant_id', $elem['restaurant_id']);
-				$this->restaurant_menu_item->set_value('item_id', $item_id);
+				$this->restaurant_menu_item->set_value('restaurant_id', $jsonData['restaurant_id']);
+				$this->restaurant_menu_item->set_value('item_id', $elem['item_id']);
 
 				if(isset($elem['item_name']))
 					$this->restaurant_menu_item->set_value('item_name', $elem['item_name']);
@@ -862,12 +863,12 @@ class Admin_catalogue_management extends CI_Controller {
 				}
 
 				if(isset($elem['image']))
-					$output_data[] = array("id"=>$elem['id'], "image_url"=> KRAZYTABLE_URL.$image_path_name, "ErrorCode"=>$temp_error_code, "ErrorMessage"=>$temp_error_message);
+					$output_data[] = array("id"=>$elem['item_id'], "image_url"=> KRAZYTABLE_URL.$image_path_name, "ErrorCode"=>$temp_error_code, "ErrorMessage"=>$temp_error_message);
 				else
-					$output_data[] = array("id"=>$elem['id'], "ErrorCode"=>$temp_error_code, "ErrorMessage"=>$temp_error_message);
+					$output_data[] = array("id"=>$elem['item_id'], "ErrorCode"=>$temp_error_code, "ErrorMessage"=>$temp_error_message);
 				
 			}catch(Exception $e) {
-				$output_data[] = array("id"=>$elem['id'], "ErrorCode"=>EXIT_DATABASE, "ErrorMessage"=>"Unable to update menu ". $elem['title']);
+				$output_data[] = array("id"=>$elem['item_id'], "ErrorCode"=>EXIT_DATABASE, "ErrorMessage"=>"Unable to update menu ". $elem['title']);
 				$err_count +=1;                     
 				$err_index =  $err_index . ',' .$curr_index;
 				if(isset($elem['image'])){
@@ -909,7 +910,7 @@ class Admin_catalogue_management extends CI_Controller {
 			$this->restaurant_menu_item->set_primary_key($elem['id']); 
 
 			try{
-				$this->menuCuisine->delete_data($this->restaurant_menu_item->get_primary_key());
+				$this->menuItemRestaurant->delete_data($this->restaurant_menu_item->get_primary_key());
 				$output_data[] = array("id"=>$elem['id'], "ErrorCode"=>EXIT_SUCCESS, "ErrorMessage"=>"");
 
 				/** delete image file from server **/
@@ -952,6 +953,30 @@ class Admin_catalogue_management extends CI_Controller {
 			echo json_encode($errJson, JSON_PRETTY_PRINT);
 		}
 	}
+
+	private function select_item_rating($jsonData){
+
+	}
+
+
+	public function item_rating() {
+                $jsonData = json_decode(file_get_contents('php://input'), true);
+                $authKey=$jsonData['access_token'];
+
+                if($authKey=='' || $authKey == null || $authKey!=AUTH_KEY){
+                        $errJson = array("ErrorCode" => EXIT_USER_INPUT, "ErrorMessage" => "The access token provided is invalid");
+                        echo json_encode($errJson, JSON_PRETTY_PRINT);
+                        die;
+                }
+
+                if($jsonData['request_type'] == SELECT_DATA){
+                        $result_size = $this->select_item_rating($jsonData);
+                        echo json_encode(array("ErrorCode" => EXIT_SUCCESS, "item_rating" => $result_size), JSON_PRETTY_PRINT);
+                }else{
+                        $errJson = array("ErrorCode" => EXIT_USER_INPUT, "ErrorMessage" => "Undefined operation");
+                        echo json_encode($errJson, JSON_PRETTY_PRINT);
+                }
+        }
 
 }
 

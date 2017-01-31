@@ -1,6 +1,6 @@
 <?php
-class RestaurantRatingDetailModel extends CI_Model{
-	private $table_name ="tbl_detail_restaurant_rating";
+class ItemRatingDetailModel extends CI_Model{
+	private $table_name ="tbl_detail_item_rating";
 
 	public function __construct()
 	{
@@ -9,14 +9,16 @@ class RestaurantRatingDetailModel extends CI_Model{
 
 	public function get_data($data)
 	{
-		$this->db->select('restaurant_id_pk1_fk, order_id_pk2_fk, customer_id_fk, transaction_time, rating_given, comments_given');
+		$this->db->select('restaurant_id_pk_fk, order_id_pk_fk, customer_id_pk_fk, transaction_time, order_item_pk_fk, rating_given, comments_given');
 		$this->db->from($this->table_name);
 		if(isset($data['restaurant_id']))
-			$this->db->where('restaurant_id_pk1_fk', $data['restaurant_id']);
+			$this->db->where('restaurant_id_pk_fk', $data['restaurant_id']);
 		if(isset($data['order_id']))
-			$this->db->where('order_id_pk2_fk', $data['order_id']);
+			$this->db->where('order_id_pk_fk', $data['order_id']);
 		if(isset($data['customer_id']))
-			$this->db->where('customer_id_fk', $data['customer_id']);
+			$this->db->where('customer_id_pk_fk', $data['customer_id']);
+		if(isset($data['order_item']))
+			$this->db->where('order_item_pk_fk', $data['order_item']);
 		$this->db->order_by("transaction_time desc");
 
 		$query = $this->db->get();

@@ -10,7 +10,10 @@ class MenuPriceItem extends CI_Model {
 	{   
         $this->db->select('size_id_fk as size_id, price as price');
         $this->db->from($this->table_name);
-        $this->db->where($data);
+
+	if(isset($data['item_id'])){
+		$this->db->where('item_unique_id_fk', $data['item_id']);
+	}
         
 		$query = $this->db->get();
 		return $query->result_array();
@@ -26,8 +29,8 @@ class MenuPriceItem extends CI_Model {
 
         if ($this->db->trans_status() === FALSE)
         {
-                log_message("error", "Unable to add size " . print_r($array_object, true) . " due to " . print_r($this->db->error(), true));
-                throw new Exception("Unable to add size", EXIT_DATABASE);
+                log_message("error", "Unable to add menu price " . print_r($array_object, true) . " due to " . print_r($this->db->error(), true));
+                throw new Exception("Unable to add menu price " . print_r($array_object, true) . " due to " . print_r($this->db->error(), true), EXIT_DATABASE);
         }
 
 	}
@@ -47,5 +50,23 @@ class MenuPriceItem extends CI_Model {
                 }
 
 	}
+
+
+	public function delete_data($array_object)
+        {
+        //$this->db->set($object);
+
+        $this->db->trans_start();
+        $this->db->delete($this->table_name, $array_object);
+        $this->db->trans_complete();
+
+                if ($this->db->trans_status() === FALSE)
+                {
+                        log_message("error", "Unable to delete menu " . print_r($array_object) . " due to " . print_r($this->db->error(), true));
+                        throw new Exception("Unable to delete menu", EXIT_DATABASE);
+                }
+
+        }
+
 
 }

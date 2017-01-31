@@ -141,7 +141,7 @@ class Restaurant_menu_item{
 	}
 
 	public function get_primary_key(){
-		return array("item_id" => $this->item_id);
+		return array("item_unique_id" => $this->item_id);
 	}
 
 	public function get_json_view(){

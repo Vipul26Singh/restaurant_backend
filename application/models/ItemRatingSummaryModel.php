@@ -1,6 +1,6 @@
 <?php
-class RestaurantRatingDetailModel extends CI_Model{
-	private $table_name ="tbl_detail_restaurant_rating";
+class ItemRatingSummaryModel extends CI_Model{
+	private $table_name ="tbl_summary_item_rating";
 
 	public function __construct()
 	{
@@ -9,15 +9,12 @@ class RestaurantRatingDetailModel extends CI_Model{
 
 	public function get_data($data)
 	{
-		$this->db->select('restaurant_id_pk1_fk, order_id_pk2_fk, customer_id_fk, transaction_time, rating_given, comments_given');
+		$this->db->select('menu_item_pk1_fk, restaurant_id_pk2_fk, average_rating, total_rater, rated_1, rated_2, rated_3, rated_4, rated_5, last_synched');
 		$this->db->from($this->table_name);
+		if(isset($data['menu_item_id']))
+			$this->db->where('menu_item_pk1_fk', $data['menu_item_id']);
 		if(isset($data['restaurant_id']))
-			$this->db->where('restaurant_id_pk1_fk', $data['restaurant_id']);
-		if(isset($data['order_id']))
-			$this->db->where('order_id_pk2_fk', $data['order_id']);
-		if(isset($data['customer_id']))
-			$this->db->where('customer_id_fk', $data['customer_id']);
-		$this->db->order_by("transaction_time desc");
+			$this->db->where('restaurant_id_pk2_fk', $data['restaurant_id']);
 
 		$query = $this->db->get();
 		return $query->result_array();

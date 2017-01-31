@@ -110,7 +110,8 @@ class CustomerMastLib{
 		$this->mobile_number = $mobile_number_uk;
 		$this->password_modification_date = $last_password_modification_date;
 		$this->default_address_id = $default_address_id_fk;
-		$this->image_url = $profile_image_url;
+		if(isset($profile_image_url) && strlen($profile_image_url) > 3)
+			$this->image_url = $profile_image_url;
 		$this->resgistration_date = $resgistration_date;
 		return $this;
 	}
@@ -140,7 +141,11 @@ class CustomerMastLib{
 	}
 
 	public function get_json_view(){
-		return array("customer_id" => $this->customer_id,"first_name" => $this->first_name,"middle_name" => $this->middle_name,"surname" => $this->surname,"user_name" => $this->user_name,"email_id" => $this->email_id,"mobile_number" => $this->mobile_number,"password_modification_date" => $this->password_modification_date,"default_address_id" => $this->default_address_id,"image_url" => KRAZYTABLE_URL . $this->image_url,"resgistration_date" => $this->resgistration_date);
+		$url = null;
+		if(isset($this->image_url)){
+			$url = KRAZYTABLE_URL . $this->image_url;	
+		}
+		return array("customer_id" => $this->customer_id,"first_name" => $this->first_name,"middle_name" => $this->middle_name,"surname" => $this->surname,"user_name" => $this->user_name,"email_id" => $this->email_id,"mobile_number" => $this->mobile_number, "image_url" => $url);
 	}
 
 	public function get_array_add(){

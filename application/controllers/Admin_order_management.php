@@ -27,6 +27,10 @@ class Admin_order_management extends CI_Controller {
 		$find['restaurant_id'] = $jsonData['restaurant_id'];
 		$find['order_modification_time'] = "curdate()";
 
+		if(isset($jsonData['customer_id'])){
+			$find['customer_id'] = $jsonData['customer_id'];
+		}
+
                 $out_object = $this->orderMastModel->get_data($find);
 		$temp_result = null;
 

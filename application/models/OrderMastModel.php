@@ -22,7 +22,7 @@ class OrderMastModel extends CI_Model{
 			$this->db->where('restaurant_id_fk', $data['restaurant_id']);
 		
 		if(isset($data['order_modification_time']))
-			$this->db->where('order_modification_time > ', $data['order_modification_time'], FALSE);   // ecpecting  > curdate() or similar
+			$this->db->where('order_modification_time < ', $data['order_modification_time'], FALSE);   // ecpecting  > curdate() or similar
 
 		if(isset($data['customer_id']))
                         $this->db->where('customer_id_fk', $data['customer_id']);

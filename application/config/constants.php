@@ -115,3 +115,5 @@ defined('GENERATE_REPORT')      OR define('GENERATE_REPORT', 'get_report'); //pa
 defined('CUSTOMER_BASE_DETAIL')  OR define('CUSTOMER_BASE_DETAIL', 'customer/');
 defined('CUSTOMER_IMAGE_BASE')  OR define('CUSTOMER_IMAGE_BASE', 'image/');
 defined('TERM_AND_CONDITION_FILE')  OR define('TERM_AND_CONDITION_FILE', 'term_and_condition.html');
+defined('SEND_SMS')  OR define('SEND_SMS', 'sms');
+defined('SEND_EMAIL')  OR define('SEND_EMAIL', 'email');

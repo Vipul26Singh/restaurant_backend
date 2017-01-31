@@ -27,8 +27,8 @@ class MenuItemRestaurant extends CI_Model {
 
 		if ($this->db->trans_status() === FALSE)
 		{
-		        log_message("error", "Unable to add size " . print_r($array_object, true) . " due to " . print_r($this->db->error(), true));
-		        throw new Exception("Unable to add size", EXIT_DATABASE);
+		        log_message("error", "Unable to add menu item " . print_r($array_object, true) . " due to " . print_r($this->db->error(), true));
+		        throw new Exception("Unable to add menu item " . print_r($array_object, true) . " due to " . print_r($this->db->error(), true), EXIT_DATABASE);
 		}
 
 	}
@@ -48,5 +48,24 @@ class MenuItemRestaurant extends CI_Model {
                 }
 
 	}
+
+	public function delete_data($array_object)
+        {
+        //$this->db->set($object);
+
+
+		$this->db->trans_start();
+        	$this->db->delete("tbl_detail_restaurant_menu_price", array("item_unique_id_fk" => $array_object['item_unique_id']));
+		$this->db->delete($this->table_name, $array_object);
+        	$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE)
+                {
+                        log_message("error", "Unable to delete menu item " . print_r($array_object) . " due to " . print_r($this->db->error(), true));
+                        print_r($this->db->error());
+                        throw new Exception("Unable to delete menu item ", EXIT_DATABASE);
+                }
+
+        }
 
 }

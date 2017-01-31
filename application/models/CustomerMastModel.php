@@ -11,7 +11,7 @@ class CustomerMastModel extends CI_Model{
 	{
 		$this->db->select('customer_id_pk, first_name, middle_name, surname, user_name, password, email_id, mobile_number_uk, last_password_modification_date, default_address_id_fk, profile_image_url, resgistration_date');
 		$this->db->from($this->table_name);
-		if(isset($data['customer_id_pk']))
+		if(isset($data['customer_id']))
 			$this->db->where('customer_id_pk', $data['customer_id']);
 		$this->db->order_by("resgistration_date desc");
 

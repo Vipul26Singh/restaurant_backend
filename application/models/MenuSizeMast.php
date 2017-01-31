@@ -39,7 +39,7 @@ class MenuSizeMast extends CI_Model {
                 if ($this->db->trans_status() === FALSE)
                 {
                         log_message("error", "Unable to add size " . print_r($array_object, true) . " due to " . print_r($this->db->error(), true));
-                        throw new Exception("Unable to add size", EXIT_DATABASE);
+                        throw new Exception("Unable to add size" . print_r($array_object, true) . " due to " . print_r($this->db->error(), true), EXIT_DATABASE);
                 }
 
 	}

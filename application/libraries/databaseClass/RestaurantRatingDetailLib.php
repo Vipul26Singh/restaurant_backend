@@ -5,7 +5,7 @@ class RestaurantRatingDetailLib{
 	private $customer_id;
 	private $transaction_time;
 	private $rating;
-	private $comment;
+	private $comments;
 
 	public function get_value($name){
 		$value = null;
@@ -19,8 +19,8 @@ class RestaurantRatingDetailLib{
 			$value = $this->transaction_time;
 		if($name=='rating')
 			$value = $this->rating;
-		if($name=='comment')
-			$value = $this->comment;
+		if($name=='comments')
+			$value = $this->comments;
 		return $value;
 	}
 
@@ -36,8 +36,8 @@ class RestaurantRatingDetailLib{
 			$value['transaction_time'] =  $this->transaction_time;
 		if($name=='rating')
 			$value['rating_given'] =  $this->rating;
-		if($name=='comment')
-			$value['comments_given'] =  $this->comment;
+		if($name=='comments')
+			$value['comments_given'] =  $this->comments;
 
 		return $value;
 	}
@@ -53,8 +53,8 @@ class RestaurantRatingDetailLib{
 			$this->transaction_time = $value;
 		if($name=='rating')
 			$this->rating = $value;
-		if($name=='comment')
-			$this->comment = $value;
+		if($name=='comments')
+			$this->comments = $value;
 	}
 
 	public function set_data($restaurant_id_pk1_fk,$order_id_pk2_fk,$customer_id_fk,$transaction_time,$rating_given,$comments_given){
@@ -63,7 +63,7 @@ class RestaurantRatingDetailLib{
 		$this->customer_id = $customer_id_fk;
 		$this->transaction_time = $transaction_time;
 		$this->rating = $rating_given;
-		$this->comment = $comments_given;
+		$this->comments = $comments_given;
 		return $this;
 	}
 
@@ -73,25 +73,26 @@ class RestaurantRatingDetailLib{
 		$this->customer_id = null;
 		$this->transaction_time = null;
 		$this->rating = null;
-		$this->comment = null;
+		$this->comments = null;
 	}
 
-	public function set_primary_key($restaurant_id_pk1_fk,$customer_id_fk){
+	public function set_primary_key($restaurant_id_pk1_fk,$customer_id_fk,$order_id_pk2_fk){
 		$this->restaurant_id = restaurant_id;
 		$this->customer_id = customer_id;
+		$this->order_id = order_id;
 	}
 
 	public function get_primary_key(){
 
-		return array("restaurant_id_pk1_fk" => $this->restaurant_id,"customer_id_fk" => $this->customer_id);
+		return array("restaurant_id_pk1_fk" => $this->restaurant_id,"customer_id_fk" => $this->customer_id,"order_id_pk2_fk" => $this->order_id);
 	}
 
 	public function get_json_view(){
-		return array("restaurant_id" => $this->restaurant_id,"order_id" => $this->order_id,"customer_id" => $this->customer_id,"transaction_time" => $this->transaction_time,"rating" => $this->rating,"comment" => $this->comment);
+		return array("rating" => $this->rating,"comments" => $this->comments);
 	}
 
 	public function get_array_add(){
-		return array("restaurant_id_pk1_fk" => $this->restaurant_id,"order_id_pk2_fk" => $this->order_id,"customer_id_fk" => $this->customer_id,"transaction_time" => $this->transaction_time,"rating_given" => $this->rating,"comments_given" => $this->comment);
+		return array("restaurant_id_pk1_fk" => $this->restaurant_id,"order_id_pk2_fk" => $this->order_id,"customer_id_fk" => $this->customer_id,"transaction_time" => $this->transaction_time,"rating_given" => $this->rating,"comments_given" => $this->comments);
 	}
 
 	public function get_array_update(){
@@ -107,8 +108,8 @@ class RestaurantRatingDetailLib{
 			$update_array['transaction_time'] = $this->transaction_time;
 		if($this->rating!=NULL)
 			$update_array['rating_given'] = $this->rating;
-		if($this->comment!=NULL)
-			$update_array['comments_given'] = $this->comment;
+		if($this->comments!=NULL)
+			$update_array['comments_given'] = $this->comments;
 		return $update_array;
 	}
 }
